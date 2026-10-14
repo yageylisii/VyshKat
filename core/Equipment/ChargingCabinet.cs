@@ -10,8 +10,9 @@ public class ChargingCabinet :
     public ChargingCabinet(
         int inventoryNumber,
         string name,
-        double dailyEnergyConsumption)
-        : base(inventoryNumber, name)
+        double dailyEnergyConsumption,
+        int condition)
+        : base(inventoryNumber, name, condition)
     {   
         if (dailyEnergyConsumption <= 0)
         {

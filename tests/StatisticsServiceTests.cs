@@ -13,8 +13,8 @@ public class StatisticsServiceTests
         Park park = new();
         park.Add(new Bicycle(1, "Велосипед", 7, 90));
         park.Add(new Scooter(2, "Самокат", 7, 90, 2.5));
-        park.Add(new Helmet(3, "Шлем"));
-        park.Add(new ChargingCabinet(4, "Шкаф", 1.5));
+        park.Add(new Helmet(3, "Шлем", 90));
+        park.Add(new ChargingCabinet(4, "Шкаф", 1.5, 90));
         StatisticsService service = new(park);
 
         Assert.Equal(4, service.GetTotalCount());
@@ -33,7 +33,7 @@ public class StatisticsServiceTests
         park.Add(suitable);
         park.Add(difficult);
         park.Add(rented);
-        park.Add(new Helmet(4, "Шлем"));
+        park.Add(new Helmet(4, "Шлем", 90));
         StatisticsService service = new(park);
 
         Assert.Equal([suitable], service.GetVehiclesForBeginners());

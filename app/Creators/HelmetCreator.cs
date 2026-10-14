@@ -13,7 +13,8 @@ public class HelmetCreator : IItemCreator
     {
         int number = Input.ReadInt("Инвентарный номер: ", 1, int.MaxValue);
         string name = Input.ReadText("Название: ");
+        int condition = Input.ReadInt("Состояние (0–100): ", 0, 100);
 
-        return new Helmet(number, name);
+        return new Helmet(number, name, condition);
     }
 }

@@ -14,7 +14,8 @@ public class ChargingCabinetCreator : IItemCreator
         int number = Input.ReadInt("Инвентарный номер: ", 1, int.MaxValue);
         string name = Input.ReadText("Название: ");
         double energy = Input.ReadPositiveDouble("Расход энергии за сутки (кВт·ч): ");
+        int condition = Input.ReadInt("Состояние (0–100): ", 0, 100);
 
-        return new ChargingCabinet(number, name, energy);
+        return new ChargingCabinet(number, name, energy, condition);
     }
 }

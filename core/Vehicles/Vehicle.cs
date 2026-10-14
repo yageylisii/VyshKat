@@ -8,7 +8,7 @@ public abstract class Vehicle : IInventoryItem
     public int InventoryNumber {get;}
     public string Name {get;}
     public int LevelUsing {get;} // простота новичка (1-10)
-    public int Statement {get;} // состояние 
+    public int Condition {get;} // состояние (1-100)
     public bool IsRented { get; private set; }
 
     protected Vehicle (int _inventoryNumber, string _name, int _levelusing, int _statement)
@@ -43,7 +43,7 @@ public abstract class Vehicle : IInventoryItem
         InventoryNumber = _inventoryNumber;
         Name = _name;
         LevelUsing = _levelusing;
-        Statement = _statement;
+        Condition = _statement;
     }
 
     public bool CanBeRentedByBeginner()

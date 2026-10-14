@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using VyshKat.Core.Interfaces;
+using VyshKat.Core.Equipment;
 using VyshKat.Core.Memory;
 using VyshKat.Core.Services;
 using VyshKat.Core.Vehicles;
@@ -27,10 +28,10 @@ public class ParkServiceTests
 
         Bicycle bicycle = new(1, "Велосипед", 7, 80);
 
-        bool accepted = parkService.TryAcceptVehicle(bicycle);
+        bool accepted = parkService.TryAcceptThing(bicycle);
 
         Assert.True(accepted);
-        Assert.Same(bicycle, inspection.LastInspectedVehicle);
+        Assert.Same(bicycle, inspection.LastInspectedItem);
         Assert.Same(bicycle, park.FindVehicle(1));
     }
     // не принимаем велосипед
@@ -48,10 +49,10 @@ public class ParkServiceTests
         IPark park = provider.GetRequiredService<IPark>();
         
         Bicycle bicycle = new(2, "Велосипед", 7, 80);
-        bool accepted = parkService.TryAcceptVehicle(bicycle);
+        bool accepted = parkService.TryAcceptThing(bicycle);
 
         Assert.False(accepted);
-        Assert.Same(bicycle, inspection.LastInspectedVehicle);
+        Assert.Same(bicycle, inspection.LastInspectedItem);
         Assert.Null(park.Find(2));
     }
 
@@ -65,17 +66,30 @@ public class ParkServiceTests
         ParkService service = new(park, new ServiceCenter());
         Bicycle bicycle = new(3, "Велосипед", 7, condition);
 
-        Assert.Equal(expected, service.TryAcceptVehicle(bicycle));
+        Assert.Equal(expected, service.TryAcceptThing(bicycle));
         Assert.Equal(expected, park.FindVehicle(3) is not null);
+    }
+
+    [Theory]
+    [InlineData(69, false)]
+    [InlineData(70, true)]
+    public void ChecksEquipmentCondition(int condition, bool expected)
+    {
+        IPark park = new Park();
+        ParkService service = new(park, new ServiceCenter());
+        Helmet helmet = new(4, "Шлем", condition);
+
+        Assert.Equal(expected, service.TryAcceptThing(helmet));
+        Assert.Equal(expected, park.Find(4) is not null);
     }
 
     private class FakeServiceCenter(bool accept) : IServiceCenter
     {
-        public Vehicle? LastInspectedVehicle { get; private set; }
+        public IInventoryItem? LastInspectedItem { get; private set; }
 
-        public bool CanAccept(Vehicle vehicle)
+        public bool CanAccept(IInventoryItem item)
         {
-            LastInspectedVehicle = vehicle;
+            LastInspectedItem = item;
             return accept;
         }
     }

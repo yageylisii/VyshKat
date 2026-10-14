@@ -13,7 +13,8 @@ public class DocStationCreator : IItemCreator
     {
         int number = Input.ReadInt("Инвентарный номер: ", 1, int.MaxValue);
         string name = Input.ReadText("Название: ");
+        int condition = Input.ReadInt("Состояние (0–100): ", 0, 100);
 
-        return new DocStation(number, name);
+        return new DocStation(number, name, condition);
     }
 }

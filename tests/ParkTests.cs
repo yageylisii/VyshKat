@@ -12,7 +12,7 @@ public class ParkTests
         Park park = new();
         park.Add(new Bicycle(1, "Велосипед", 7, 80));
 
-        Assert.Throws<ArgumentException>(() => park.Add(new Helmet(1, "Шлем")));
+        Assert.Throws<ArgumentException>(() => park.Add(new Helmet(1, "Шлем", 90)));
         Assert.Single(park.GetAll());
     }
 
@@ -20,7 +20,7 @@ public class ParkTests
     public void FindVehicleSkipsEquipment()
     {
         Park park = new();
-        park.Add(new Helmet(1, "Шлем"));
+        park.Add(new Helmet(1, "Шлем", 90));
 
         Assert.NotNull(park.Find(1));
         Assert.Null(park.FindVehicle(1));
@@ -30,7 +30,7 @@ public class ParkTests
     public void RemovesItem()
     {
         Park park = new();
-        park.Add(new Helmet(1, "Шлем"));
+        park.Add(new Helmet(1, "Шлем", 90));
 
         Assert.True(park.Remove(1));
         Assert.Null(park.Find(1));

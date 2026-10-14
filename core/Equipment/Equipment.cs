@@ -7,14 +7,23 @@ public abstract class EquipmentItem : IInventoryItem
     public int InventoryNumber { get; }
     public string Name { get; }
 
+    public int Condition { get; }
+
     protected EquipmentItem(
         int inventoryNumber,
-        string name)
+        string name,
+        int condition)
     {
         if (inventoryNumber <= 0)
         {
             throw new ArgumentException(
                 "Номер должен быть больше нуля"
+            );
+        }
+        if (condition < 0 || condition > 100)
+        {
+            throw new ArgumentException(
+                "Состояние должно быть от 0 до 100"
             );
         }
 
@@ -25,6 +34,7 @@ public abstract class EquipmentItem : IInventoryItem
             );
         }
 
+        Condition = condition;
         InventoryNumber = inventoryNumber;
         Name = name;
     }

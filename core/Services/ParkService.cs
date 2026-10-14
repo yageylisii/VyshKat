@@ -1,6 +1,4 @@
-using VyshKat.Core.Vehicles;
 using VyshKat.Core.Interfaces;
-using VyshKat.Core.Equipment;
 
 namespace VyshKat.Core.Services;
 
@@ -8,21 +6,16 @@ public class ParkService
 {
     private readonly IPark _park;
     private readonly IServiceCenter _serviceCenter;
-    public bool TryAcceptVehicle(Vehicle vehicle) // добавить транспорт
+
+    public bool TryAcceptThing(IInventoryItem thing)
     {
-        if (!_serviceCenter.CanAccept(vehicle))
+        if (!_serviceCenter.CanAccept(thing))
         {
             return false;
         }
 
-        _park.Add(vehicle);
+        _park.Add(thing);
         return true;
-    }
-
-    public void AddEquipment( // добавить оборудование 
-        EquipmentItem equipment)
-    {
-        _park.Add(equipment);
     }
     public ParkService(
         IPark park,

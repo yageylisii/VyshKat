@@ -75,7 +75,7 @@ public class ServiceRun
     {
         if (item is Vehicle vehicle)
         {
-            bool accepted = _parkService.TryAcceptVehicle(vehicle);
+            bool accepted = _parkService.TryAcceptThing(vehicle);
             Output.ShowMessage(accepted
                 ? "Транспорт принят в парк."
                 : "Транспорт не прошёл техосмотр (состояние должно быть не ниже 70).");
@@ -84,8 +84,10 @@ public class ServiceRun
 
         if (item is EquipmentItem equipment)
         {
-            _parkService.AddEquipment(equipment);
-            Output.ShowMessage("Вещь добавлена в парк.");
+            bool accepted = _parkService.TryAcceptThing(equipment);
+            Output.ShowMessage(accepted
+                ? "Вещь добавлена в парк."
+                : "Вещь не прошла техосмотр (состояние должно быть не ниже 70).");
             return;
         }
 
