@@ -46,6 +46,7 @@ public class ServiceRun
                     case "1": AddItem(); break;
                     case "2": RentVehicle(); break;
                     case "3": ShowStatistics(); break;
+                    case "4": ReturnVehicle(); break;
                     default: Output.ShowMessage("Нет такой команды."); break;
                 }
             }
@@ -103,6 +104,16 @@ public class ServiceRun
         Output.ShowMessage(rented
             ? "Транспорт выдан в аренду."
             : "Транспорт не найден, уже арендован или не подходит новичку.");
+    }
+
+    private void ReturnVehicle()
+    {
+        int number = Input.ReadInt("Инвентарный номер транспорта: ", 1, int.MaxValue);
+        bool returned = _rentalService.TryReturn(number);
+
+        Output.ShowMessage(returned
+            ? "Транспорт возвращён в парк."
+            : "Транспорт не найден или не находится в аренде.");
     }
 
     private void ShowStatistics()

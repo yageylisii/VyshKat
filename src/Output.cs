@@ -12,6 +12,7 @@ public static class Output
         Console.WriteLine("1 — Добавить транспорт или вещь");
         Console.WriteLine("2 — Арендовать транспорт");
         Console.WriteLine("3 — Показать статистику");
+        Console.WriteLine("4 — Вернуть транспорт");
         Console.WriteLine("0 — Выход");
         Console.Write("Команда: ");
     }

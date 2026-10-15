@@ -52,4 +52,29 @@ public class RentalServiceTests
 
         Assert.False(service.TryRent(999, isBeginner: false));
     }
+    // проверяем работу TryReturn
+    [Fact]
+    public void ReturnsRentedVehicle()
+    {
+        Park park = new();
+        Bicycle bicycle = new(1, "Велосипед", 7, 90);
+        park.Add(bicycle);
+        RentalService service = new(park);
+
+        Assert.True(service.TryRent(1, isBeginner: false));
+        Assert.True(service.TryReturn(1));
+        Assert.False(bicycle.IsRented);
+        //Assert.True(service.TryRent(1, isBeginner: false));
+    }
+
+    [Fact]
+    public void DoesNotReturnMissingOrAvailableVehicle()
+    {
+        Park park = new();
+        park.Add(new Bicycle(1, "Велосипед", 7, 90));
+        RentalService service = new(park);
+
+        Assert.False(service.TryReturn(1));
+        Assert.False(service.TryReturn(999));
+    }
 }

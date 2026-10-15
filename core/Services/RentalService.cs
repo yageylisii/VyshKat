@@ -38,4 +38,16 @@ public class RentalService
         return true;
     }
 
+    public bool TryReturn(int number)
+    {
+        Vehicle? vehicle = _park.FindVehicle(number);
+        if (vehicle is null || !vehicle.IsRented)
+        {
+            return false;
+        }
+
+        vehicle.Return();
+        return true;
+    }
+
 }
