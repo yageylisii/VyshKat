@@ -28,7 +28,7 @@ public class StatisticsService
                 item.DailyEnergyConsumption);
     }
 
-    // получить суммарное потребление энергии
+    // получить список транспорта для новичков
     public IEnumerable<Vehicle>
         GetVehiclesForBeginners()
     {

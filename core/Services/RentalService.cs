@@ -13,7 +13,7 @@ public class RentalService
         _park = park;
     }
 
-    public bool TryRent (int number, int levelusing)
+    public bool TryRent(int number, bool isBeginner)
     {   
 
         Vehicle? vehicle =
@@ -29,12 +29,25 @@ public class RentalService
             return false;
         }
 
-        if (!vehicle.CanBeRentedByBeginner())
+        if (isBeginner && !vehicle.CanBeRentedByBeginner())
         {
             return false;
         }
- 
-        return false;
+
+        vehicle.Rent();
+        return true;
+    }
+
+    public bool TryReturn(int number)
+    {
+        Vehicle? vehicle = _park.FindVehicle(number);
+        if (vehicle is null || !vehicle.IsRented)
+        {
+            return false;
+        }
+
+        vehicle.Return();
+        return true;
     }
 
 }
